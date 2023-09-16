@@ -1,5 +1,4 @@
-﻿
-namespace Users.Api.Contracts.Requests;
+﻿namespace Users.Api.Contracts.Requests;
 
 /// <summary>
 /// A request to create a user
