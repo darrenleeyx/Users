@@ -4,6 +4,7 @@ namespace Users.Application.Services;
 
 public interface IUserService
 {
+    Task<bool> ContainsIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ContainsUsernameAsync(string username, CancellationToken cancellationToken = default);
     Task<bool> CreateAsync(User user, CancellationToken cancellationToken = default);
     Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);

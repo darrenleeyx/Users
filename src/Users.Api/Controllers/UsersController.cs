@@ -63,9 +63,10 @@ namespace Users.Api.Controllers
 
         [HttpDelete(ApiEndpoints.Users.Delete)]
         [SwaggerResponse(StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteById([FromRoute] Guid id, CancellationToken cancellationToken = default)
+        [SwaggerResponse(StatusCodes.Status400BadRequest, type: typeof(ValidationProblemDetails))]
+        public async Task<IActionResult> DeleteById([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
         {
-            var deleted = await _userService.DeleteByIdAsync(id);
+            var deleted = await _userService.DeleteByIdAsync(request.Id);
 
             if (deleted == false)
             {

@@ -15,6 +15,11 @@ public class UserService : IUserService
         _userValidator = userValidator;
     }
 
+    public Task<bool> ContainsIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _userRepository.ContainsIdAsync(id, cancellationToken);
+    }
+
     public Task<bool> ContainsUsernameAsync(string username, CancellationToken cancellationToken = default)
     {
         return _userRepository.ContainsUsernameAsync(username, cancellationToken);

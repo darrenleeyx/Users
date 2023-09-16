@@ -42,6 +42,33 @@ public class UserServiceTests
     }
 
     [Fact]
+    public async Task ContainsIdAsync_ShouldReturnTrue_WhenIdExists()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        _userRepository.ContainsIdAsync(id).Returns(true);
+
+        // Act
+        var result = await _sut.ContainsIdAsync(id);
+
+        // Assert
+        result.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ContainsIdAsync_ShouldReturnFalse_WhenIdDoesNotExist()
+    {
+        // Arrange
+        _userRepository.ContainsIdAsync(Arg.Any<Guid>()).Returns(false);
+
+        // Act
+        var result = await _sut.ContainsIdAsync(Guid.NewGuid());
+
+        // Assert
+        result.Should().BeFalse();
+    }
+
+    [Fact]
     public async Task ContainsUsernameAsync_ShouldReturnTrue_WhenUsernameExists()
     {
         // Arrange

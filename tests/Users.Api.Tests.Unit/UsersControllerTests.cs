@@ -156,10 +156,11 @@ public class UsersControllerTests
     {
         // Arrange
         var existingUser = _userGenerator.Generate();
-        _userService.DeleteByIdAsync(existingUser.Id).Returns(true);
+        var request = new DeleteUserRequest { Id = existingUser.Id };
+        _userService.DeleteByIdAsync(request.Id).Returns(true);
 
         // Act
-        var result = (OkResult)await _sut.DeleteById(existingUser.Id);
+        var result = (OkResult)await _sut.DeleteById(request);
 
         // Assert
         result.StatusCode.Should().Be((int)HttpStatusCode.OK);
@@ -169,10 +170,11 @@ public class UsersControllerTests
     public async Task Delete_ShouldReturnNotFound_WhenUserDoesNotExist()
     {
         // Arrange
-        _userService.DeleteByIdAsync(Arg.Any<Guid>()).Returns(false);
+        var request = new DeleteUserRequest { Id = Guid.NewGuid() };
+        _userService.DeleteByIdAsync(request.Id).Returns(false);
 
         // Act
-        var result = (NotFoundResult)await _sut.DeleteById(Guid.NewGuid());
+        var result = (NotFoundResult)await _sut.DeleteById(request);
 
         // Assert
         result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);

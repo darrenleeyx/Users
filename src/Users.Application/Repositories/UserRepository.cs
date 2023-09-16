@@ -15,6 +15,11 @@ public class UserRepository : IUserRepository
         }
     }
 
+    public Task<bool> ContainsIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(_users.Any(u => u.Id == id));
+    }
+
     public Task<bool> ContainsUsernameAsync(string username, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(_users.Any(u => u.Username == username));
