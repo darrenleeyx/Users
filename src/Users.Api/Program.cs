@@ -24,6 +24,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), Serv
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.EnableAnnotations();
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
         $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,

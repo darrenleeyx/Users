@@ -160,7 +160,7 @@ public class UsersControllerTests
         _userService.DeleteByIdAsync(request.Id).Returns(true);
 
         // Act
-        var result = (OkResult)await _sut.DeleteById(request);
+        var result = (OkResult)await _sut.Delete(request);
 
         // Assert
         result.StatusCode.Should().Be((int)HttpStatusCode.OK);
@@ -174,7 +174,7 @@ public class UsersControllerTests
         _userService.DeleteByIdAsync(request.Id).Returns(false);
 
         // Act
-        var result = (NotFoundResult)await _sut.DeleteById(request);
+        var result = (NotFoundResult)await _sut.Delete(request);
 
         // Assert
         result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);

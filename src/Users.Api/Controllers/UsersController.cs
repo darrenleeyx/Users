@@ -24,7 +24,9 @@ namespace Users.Api.Controllers
             _dateTimeProvider = dateTimeProvider;
         }
 
+
         [HttpGet(ApiEndpoints.Users.Get)]
+        [SwaggerOperation("Gets a user by id")]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(UserResponse))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken = default)
@@ -41,6 +43,7 @@ namespace Users.Api.Controllers
         }
 
         [HttpGet(ApiEndpoints.Users.GetAll)]
+        [SwaggerOperation("Gets all users")]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(UsersResponse))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
         {
@@ -50,6 +53,7 @@ namespace Users.Api.Controllers
         }
 
         [HttpPost(ApiEndpoints.Users.Create)]
+        [SwaggerOperation("Creates a user")]
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(UserResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, type: typeof(ValidationProblemDetails))]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken cancellationToken = default)
@@ -62,9 +66,10 @@ namespace Users.Api.Controllers
         }
 
         [HttpDelete(ApiEndpoints.Users.Delete)]
+        [SwaggerOperation("Deletes a user")]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest, type: typeof(ValidationProblemDetails))]
-        public async Task<IActionResult> DeleteById([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Delete([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
         {
             var deleted = await _userService.DeleteByIdAsync(request.Id);
 
